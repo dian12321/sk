@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .news_container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news_slide {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .items {
+            height: 70px;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .leftText,
+        .rightBtn {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .rightBtn {
+            float: right;
+        }
+
+        #prevBtn,
+        #nextBtn {
+            position: absolute;
+            cursor: pointer;
+        }
+
+        #prevBtn {
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #nextBtn {
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const newsSlide = document.querySelector('.news_slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            let currentIndex = 0;
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = Math.max(currentIndex - 1, 0);
+                updateNewsSlide();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = Math.min(currentIndex + 1, newsSlide.children.length - 1);
+                updateNewsSlide();
+            });
+
+            function updateNewsSlide() {
+                const itemHeight = document.querySelector('.items').offsetHeight;
+                const translateYValue = -currentIndex * itemHeight;
+                newsSlide.style.transform = `translateY(${translateYValue}px)`;
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="news_container">
+        <div class="news_slide">
+            <div class="items">
+                <div class="leftText">
+                    <p class="tText"><span class="skcp">SK 바이오사이언스
+                            </span><span class="date">~2024-01-12</span></p>
+                    <p class="bText">23년 4분기 HOUSE HR 경력사원 수시채용</p>
+                </div>
+                <div class="rightBtn">
+                    <a href="#"> D - 3 </a>
+                </div>
+            </div>
+            <!-- Add more items as needed -->
+            <div class="items">
+                <div class="leftText">
+                    <p class="tText"><span class="skcp">SK 바이오사이언스
+                            </span><span class="date">~2024-01-12</span></p>
+                    <p class="bText">23년 4분기 HOUSE HR 경력사원 수시채용</p>
+                </div>
+                <div class="rightBtn">
+                    <a href="#"> D - 3 </a>
+                </div>
+            </div>
+            <!-- Add more items as needed -->
+        </div>
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn">Next</button>
+    </div>
+</body>
+
+</html>

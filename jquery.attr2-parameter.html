@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery.attr - 매개변수(파라미터) </title>
+    <style>
+        body {
+            background-color: #999;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>    
+</head>
+<body>
+    <img src="./images/logo2ea/logo.png" alt="기본로고" class="logoImg">
+    <script>
+      function addMouseOverEvent(element, hoverImageSrc, originalImageSrc){
+        element.on('mouseover',function(){
+            element.attr('src', hoverImageSrc);
+        });
+        element.on('mouseout',function(){
+            element.attr('src', originalImageSrc);
+        });
+    }
+        // class="logoImg" 를 jQuery 문법으로 선택 
+        var logoImage = $('.logoImg');
+        addMouseOverEvent(logoImage, './images/logo2ea/logoHover.png','./images/logo2ea/logo.png');
+    
+    </script>
+</body>
+
+</html>

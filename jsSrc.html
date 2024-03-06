@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> js .src </title>
+    <style>
+        body {
+            background-color: #999;
+        }
+    </style>
+
+</head>
+
+<body>
+    <img src="./images/logo2ea/logo.png" alt="로고" id="logoImg">
+    <script>
+        // 변수에 이미지의 id로 넣어줌 
+        var logoImage = document.getElementById('logoImg');
+        // 마우스 올렸을때와 내렸을때 (올렸을때 mouseover/내렸을때 mouseout)
+        // 올렸을때
+        logoImage.addEventListener('mouseover',function(){
+            logoImage.src = './images/logo2ea/logoHover.png';
+        });
+        // 벗어났을때
+        logoImage.addEventListener('mouseout',function(){
+            logoImage.src = './images/logo2ea/logo.png';
+        }); 
+    </script> 
+</body>
+
+</html>

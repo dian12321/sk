@@ -1,0 +1,486 @@
+    <!DOCTYPE html>
+    <html lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>홍다은 - SK Picglobal </title>
+        <!-- rel="preconnect" - html에게 특정 도메인에 연결하라는 HTML태그임 -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <!-- 페비콘 -->
+
+ <link rel="shoutcut icon" href="./images/fv.svg">
+        <!-- crossorigin : 스크립트를 익명으로 가져옴
+        인증정보 전송하지 못하도록 차단하는 역할을 함 
+    보안상의 이유로 들어감  
+    link, script, img, video, audio  
+    -->
+        <!-- rel="stylesheet":css 형식임을 나타냄 -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Titillium+Web:wght@200;300;400;700&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700&display=swap">
+        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+        <!-- font-awesome 공식사이트 - https://fontawesome.com/ -->
+        <!-- <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
+            href="/css/app-wa-2e45578ecf3b28ce6383d10b8c0bf4d0.css?vsn=d"> -->
+        <!-- rel="stylesheet":css 형식임을 나타냄 -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Titillium+Web:wght@200;300;400;700&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700&display=swap">
+        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.0/css/all.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.0/css/sharp-thin.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.0/css/sharp-solid.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.0/css/sharp-regular.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.0/css/sharp-light.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css">
+        <!-- 나눔스퀘어 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-nanum@1.0.0/nanumsquare.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+        <script src="./js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+        <script src="./js/jquery.slicknav.js"></script>
+        <script src="./js/picMain.js"></script>
+        <script>
+            WebFont.load({
+                google: {
+                    families: ['Nanum Square:regular,bold']
+                }
+            });
+            // career news slide 
+            // DOMContentLoaded 모든 HTML 문서가 로드되었을때 실행하라는 이벤트
+            document.addEventListener("DOMContentLoaded", function () {
+                // 슬라이드
+                let newsSlide = document.querySelector('.news_slide');
+                // 이전버튼
+                let prevBtn = document.getElementById('prevBtn');
+                // 다음버튼
+                let nextBtn = document.getElementById('nextBtn');
+                // 초기값 0 
+                let currentIndex = 0;
+                // 반복하여 실행하는 변수 
+                let intervalId;
+
+                // 자동슬라이드 함수 
+                function startAutoSlide() {
+                    intervalId = setInterval(() => {
+                        // 0,1,2 순환시켜줌
+                        currentIndex = (currentIndex + 1) % newsSlide.children.length;
+                       updateNewsSlide();
+                    }, 3000); // 3초마다 슬라이드 이동
+                }
+                // setInterval 반복실행
+                // clearInterval 반복실행 멈춤 
+
+                // 슬라이드 멈춤 함수 
+                function stopAutoSlide() {
+        clearInterval(intervalId);
+    }
+
+
+                // 마우스가 아이템들에 들어왔을때 슬라이드 멈춤
+                newsSlide.addEventListener('mouseenter', stopAutoSlide);
+                // 마우스가 아이템들에 벗어났을때 슬라이드 멈춤
+                newsSlide.addEventListener('mouseleave', startAutoSlide);
+
+
+                // 초기에 자동 슬라이드 시작 
+                startAutoSlide();
+
+
+
+                // 이전버튼 클릭 이벤트
+                prevBtn.addEventListener('click', () => {
+                    currentIndex = Math.max(currentIndex - 1, 0);
+                    // 업데이트 함수 호출 
+                    updateNewsSlide();
+                });
+
+
+                // 다음버튼 클릭 이벤트
+                nextBtn.addEventListener('click', () => {
+                    // newsSlide.children.length => .items갯수를 의미
+                    currentIndex = Math.min(currentIndex + 1, newsSlide.children.length - 1);
+                    // 업데이트 함수 호출 
+                    updateNewsSlide();
+                });
+                // 슬라이드 업데이트 함수 
+                function updateNewsSlide() {
+                    // 각 아이템의 높이값 가져와 변수로 저장
+                    // .offsetHeight; html 높이값을 픽셀단위로 가져옴 
+                    let itemHeight = document.querySelector('.items').offsetHeight;
+                    let translateYValue = -currentIndex * itemHeight;
+                    // 현재 인덱스에 따라 translateY 값을 계산하여 업데이트
+                    newsSlide.style.transform = `translateY(${translateYValue}px)`; // 100px
+                }
+
+            });
+            // newsSlide.children.length -1 : -1보다 크면 최대값인 
+            // newsSlide.children.length -1이 반환
+            // .max() -> 주어진 숫자들 중 가장 큰 값을 반환하는 메서드
+            // .min() -> 주어진 숫자들 중 가장 큰 값을 반환하는 메서드
+            // currentIndex = Math.max(currentIndex - 1, 0);
+            // 현재의 인덱스값을 1만큼 감소시키는 코드 
+            // 0보다 작아지지 않게 하는 역할을 함
+            // .max 최대값
+            // 주어진 요소들 중 가장 큰 값을 반환
+            // 1, 0을 비교해서 둘 중에 큰 값을 currentIndex에 할당
+            // currentIndex - 1 현재 인덱스에서 1을 뺀 값 
+            // 0을 최소값으로 설정하는 구조
+            // -1이 0보다 작으면, 최소값인 0이 반환되고, 그렇지 않으면, -1
+            // 인덱스를 1만큼 감소시키면서 최소값은 0으로 제한하는 역할
+        </script>
+    </head>
+
+    <body>
+        <!-- #wrap>header>.innerHeader -->
+        <div id="wrap">
+            <!-- =================================
+                header 
+            ====================================-->
+            <header>
+                <div class="headerBar">
+                    <div class="innerHeader">
+                        <!-- logo -->
+                        <!-- h1.logo>a>img -->
+                        <h1 class="logo">
+                            <a href="#">
+                                <img src="./images/skPic-logo.svg" alt="sk picglobal logo">
+                            </a>
+                        </h1>
+                        <!-- pcmenu -->
+                        <!-- nav.nav>.inner>ul#menu.nav-list>li.in_menu0$*5>a -->
+                        <nav class="nav">
+                            <div class="inner">
+                                <ul id="menu" class="nav-list">
+                                    <li class="in_menu01">
+                                        <a href="#">
+                                            Corporation
+                                        </a>
+                                        <!-- ul.submenu>li*5>a{sub$} -->
+                                        <ul class="submenu">
+                                            <li><a href="#">SK Picglobal</a></li>
+                                            <li><a href="#">CEO메세지</a></li>
+                                            <li><a href="#">연혁</a></li>
+                                            <li><a href="#">CI</a></li>
+                                            <li><a href="#">윤리경영</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="in_menu02">
+                                        <a href="#">Products</a>
+                                        <!-- sub -->
+                                        <ul class="submenu">
+                                            <li><a href="#">PG</a></li>
+                                            <li><a href="#">PGUSP</a></li>
+                                            <li><a href="#">PGF</a></li>
+                                            <li><a href="#">PGI</a></li>
+                                            <li><a href="#">DPG</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="in_menu03">
+                                        <a href="#">Customers</a>
+                                        <!-- sub -->
+                                        <ul class="submenu">
+                                            <li><a href="#">제품 자료실</a></li>
+                                            <li><a href="#">고객문의</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="in_menu04">
+                                        <a href="#">Communication</a>
+                                        <!-- sub -->
+                                        <ul class="submenu">
+                                            <li><a href="#">News</a></li>
+                                            <li><a href="#">전자공고</a></li>
+                                            <li><a href="#">공시정보</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="in_menu05">
+                                        <a href="#">Career</a>
+                                        <!-- sub -->
+                                        <ul class="submenu">
+                                            <li><a href="#">채용공고</a></li>
+                                            <li><a href="#">직원인터뷰</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <!-- pc search,lang -->
+                        <!-- ul.searchLang>li*3>a -->
+                        <ul class="searchLang">
+                            <li><a href="#">
+                                    <i class="fa-regular fa-magnifying-glass"></i>
+                                    <!-- <img src="./images/icon_search_w.svg" alt="검색버튼"> -->
+                                </a></li>
+                            <li><a href="#">KO</a></li>
+                            <li><a href="#">EN</a></li>
+                        </ul>
+                        <!-- mobile search, toggle -->
+                        <!-- ul.searchToggle>li*2>a>img -->
+                        <ul class="searchToggle">
+                            <li><a href="#"><img src="./images/icon_search_w.svg" alt="검색버튼"></a></li>
+                            <li><a href="#"><img src="./images/toggle-right.svg" alt="햄버거버튼"></a></li>
+                        </ul>
+                    </div>
+                    <!-- pc sub menu bg -->
+                    <div class="smenu_bar"></div>
+                </div>
+            </header>
+            <!-- =================================
+                main - 전체 콘텐츠 영역 
+            ====================================-->
+            <!-- main>section.products>h2{products} -->
+            <main>
+                <!-- 메인슬라이드 -->
+                <section class="main_visual">
+                    <h2 class="blind">main_visual</h2>
+                    <!-- .swiper.mySwiper -->
+                    <!-- 슬라이드, 인디케이터, 이전다음버튼  -->
+                    <div class="swiper mySwiper">
+
+                        <!-- 스와이퍼 슬라이드 -->
+                        <!-- .swiper-wrapper -->
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <!-- p.sm+p.bigText -->
+                                <p class="sm">SK Picglobal이 이뤄낸 기술 변화가 </p>
+                                <p class="bigText">
+                                    세상을 바꿉니다.</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <p class="sm">삶의 질을 높이는 </p>
+                                <p class="bigText"> Global Eco-Life
+                                </p>
+                            </div>
+                            <div class="swiper-slide">
+                                <p class="sm">삶의 가치를 높이는</p>
+                                <p class="bigText">SK Picglobal의 기술</p>
+                            </div>
+                        </div>
+
+                        <!-- 인디케이터 -->
+                        <div class="swiper-pagination slides-pagenation"></div>
+
+                        <!-- 이전,다음버튼 -->
+                        <!-- .swiper-button-prev -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+
+                </section>
+                <section class="products">
+                    <h2>Products <span></span></h2>
+                    <p>삶의 가치를 높이는 SK Picglobal의 기술</p>
+
+                </section>
+
+                <section class="career">
+                    <h2 class="blind">career</h2>
+                    <!-- redBox -->
+                    <!-- .redBox>.tBox+.bBox -->
+                    <div class="careerInner">
+                        <!-- 이전, 다음버튼 -->
+
+                        <div class="prevNext">
+                            <div id="prevBtn"><i class="fa-regular fa-arrow-left-long"></i></div>
+                            <div id="nextBtn"><i class="fa-regular fa-arrow-right-long"></i></div>
+                        </div>
+
+                        <div class="redBox">
+                            <!-- 상단 흰색-뉴스 -->
+                            <div class="tBox">
+                                <!-- .news_slide>.items>.leftText+.rightBtn -->
+                                <div class="news_slide">
+
+                                    <!-- 1 -->
+                                    <div class="items">
+                                        <div class="leftText">
+                                            <p class="tText">
+                                                <span class="skcp">SK 바이오사이언스
+                                                </span><span class="date">~2024-01-12</span></p>
+                                            <p class="bText">23년 4분기 HOUSE HR 경력사원 수시채용</p>
+                                        </div>
+                                        <div class="rightBtn">
+                                            <a href="#"> D - 3 </a>
+                                        </div>
+                                    </div>
+                                    <!-- 2 -->
+                                    <div class="items">
+                                        <div class="leftText">
+                                            <p class="tText">
+                                                <span class="skcp">SK 매직
+                                                </span><span class="date">~2024-01-16</span></p>
+                                            <p class="bText">청주공장 의약품생산 계약직채용(신입/경력)</p>
+                                        </div>
+                                        <div class="rightBtn">
+                                            <a href="#"> D - 7 </a>
+                                        </div>
+                                    </div>
+                                    <!-- 3 -->
+                                    <div class="items">
+                                        <div class="leftText">
+                                            <p class="tText">
+                                                <span class="skcp">SK 브로드밴드
+                                                </span><span class="date">~2024-01-12</span></p>
+                                            <p class="bText">해저케이블 운용 전문가</p>
+                                        </div>
+                                        <div class="rightBtn">
+                                            <a href="#"> D - 3 </a>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                            <!-- 하단 빨강-채용사이트넘어가기 -->
+                            <div class="bBox">
+                                <!-- text  -->
+                                <!-- p.top+span -->
+                                <p class="top">
+                                    SK Picglobal 에서
+                                </p>
+                                <span class="text">
+                                    꿈을 펼칠 당신을 기다립니다.
+                                </span>
+                                <!-- more btn  -->
+                                <!-- .moreBox>.btn>a>span{More} -->
+
+                                <div class="moreBox">
+                                    <div class="btn">
+                                        <a href="#">
+                                            <span>More</span>
+                                            <i class="fal fa-chevron-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="newsRoom">
+                    <h2>News room<span></span></h2>
+                    <p> SK Picglobal의 다양한 소식과 정보를 만나보세요.</p>
+
+                </section>
+
+                <!-- 하단화살표 -->
+                <!-- a.btnTop>img -->
+                <a href="#" class="btnTop"><img src="./images/top-arrow.svg" alt="최상단 이동 화살표"></a>
+            </main>
+            <!-- =================================
+                footer 
+            ====================================-->
+            <!-- footer>.innerFooter>ul.bmenu>li*6>a -->
+            <footer>
+                <div class="innerFooter">
+                    <!-- 하단메뉴 -->
+                    <ul class="bmenu">
+                        <li><a href="#">Corporation
+                            </a>
+                            <!-- ul.list>li*6>a{name} -->
+                            <ul class="list">
+                                <li><a href="#">SK Picglobal소개</a></li>
+                                <li><a href="#">지속가능경영</a></li>
+                                <li><a href="#">윤리경영</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Products
+                            </a>
+                            <ul class="list">
+                                <li><a href="#">PG</a></li>
+                                <li><a href="#">PO</a></li>
+                                <li><a href="#">SM</a></li>
+                                <li><a href="#">PGE</a></li>
+                                <li><a href="#">Renewables</a></li>
+                                <li><a href="#">MSDS</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Customers
+                            </a>
+                            <ul class="list">
+                                <li><a href="#">제품자료실</a></li>
+                                <li><a href="#">고객문의</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Communication</a>
+                            <ul class="list">
+                                <li><a href="#">전자공고</a></li>
+                                <li><a href="#">News</a></li>
+                                <li><a href="#">공시정보</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="#">개인정보보호정책</a>
+                            <ul class="list">
+                                <li><a href="#">SK그룹</a></li>
+                                <li><a href="#">SK Picglobal</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="#">Career
+                            </a>
+                            <ul class="list">
+                                <li><a href="#">SK채용사이트</a></li>
+                                <li><a href="#">직원인터뷰</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <!-- 관련사이트+copyright -->
+                    <!-- .fmCopy>select>option*6 -->
+                    <div class="fmCopy">
+                        <!-- name : 서버에 제출시 사용되는 필드명 
+                        이 이름으로 식별하여 데이타 처리함 
+                    id : 스타일 적용시 사용 
+                동일한 id명을 가진 요소가 없도록 주의 -->
+                        <!-- <select name="" id="">  -->
+                        <select id="familySites" onchange="Site()">
+                            <!-- option value - 서버로 전송되는 값 넣기 -->
+                            <option value="#">패밀리 사이트</option>
+                            <option value="SK">SK 주식회사</option>
+                            <option value="SKC">SKC</option>
+                            <option value="SKN">SK 넥실리스</option>
+                            <option value="SKEN">SK 엔펄스</option>
+                            <option value="SKPucore">SK Pucore</option>
+                        </select>
+                        <!-- copyright -->
+                        <div class="copyright">
+                            <p>
+                                &copy; 2024 SK Picglobal. ALL RIGHTS RESERVED.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- Swiper 라이브러리 스크립트를 불러오기 -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+        <script>
+            // swiper slide plugin
+            // .mySwiper 에 슬라이드 적용
+            var swiper = new Swiper(".mySwiper", {
+                // 이전 다음버튼 사용하여 슬라이드 전환
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                // 인디케이터
+                pagination: {
+                    el: ".swiper-pagination", // 표시할 요소 선택자
+                    clickable: true, // 버튼 클릭시 슬라이드 이동하도록 설정
+                },
+            });
+        </script>
+    </body>
+
+    </html>

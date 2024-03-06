@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> js .src 2 - 매개변수(파라미터) </title>
+    <style>
+        body {
+            background-color: #999;
+        }
+    </style>
+
+</head>
+
+<body>
+    <img src="./images/logo2ea/logo.png" alt="로고" id="logoImg">
+    <script>
+        // element (이벤트 추가할 대상)
+        // hoverImageS (마우스 올렸을때 이미지 경로)
+        // originalImageSrc (마우스 벗어났을때 본래 이미지 경로)
+        function addMouseOverEvent(element, hoverImageSrc, originalImageSrc) {
+            // 마우스 올렸을때 이벤트 리스너 추가
+
+            element.addEventListener('mouseover', function () {
+                // 마우스 올렸을때 변경될 이미지인 hoverImageSrc로 넣어줌(변경됨)
+                element.src = hoverImageSrc;
+            });
+            element.addEventListener('mouseout', function () {
+                // 마우스 벗어났을때 변경될 이미지인 hoverImageSrc로 넣어줌(변경됨)
+                element.src = originalImageSrc;
+            });
+        }
+        // img 태그에 id로 된 이미지를 변수에 넣어줌 
+        var logoImage = document.getElementById('logoImg');
+        addMouseOverEvent(logoImage, './images/logo2ea/logoHover.png', './images/logo2ea/logo.png');
+    </script>
+</body>
+
+</html>
